@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 2</title>
+  <link rel="icon" type="image/png" href="uv-lozenge.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      text-align: center;
+      padding: 50px;
+    }
+
+    header {
+      background-color: #333333;
+      color: #f0f0f0;
+      padding: 20px;
+      border-bottom: 2px solid #444;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    /* Invisible elements */
+    h2, h3, h4, h5, h6, p, a {
+      opacity: 0; /* Make headings, paragraphs, and links invisible */
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    /* Form styling */
+    form {
+      margin-top: 50px;
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 8px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      max-width: 350px;
+      margin: auto;
+    }
+
+    label {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #e0e0e0;
+    }
+
+    select {
+      font-size: 2rem; /* Increase font size for larger emojis */
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background-color: #444;
+      color: #e0e0e0;
+      margin-bottom: 20px;
+      text-align: center;
+      cursor: pointer; /* Improves the experience on hover */
+    }
+
+    /* Verify button styling */
+    .verify-button {
+      background-color: #00bcd4;
+      color: #1e1e1e;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .verify-button:hover {
+      background-color: #008ba2;
+    }
+
+    /* Error message styling */
+    .error-message {
+      color: #ff4f4f;
+      font-size: 1rem;
+      margin-top: 15px;
+      visibility: hidden; /* Hidden by default */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NVDA Challenge: Level 2</h1>
+  </header>
+
+  <main>
+    <!-- Hidden elements for screen reader navigation -->
+    <a href="#">This one is all about images!</a>
+    <br>
+    <a href="#">Use your arrow keys for this one, try to find the right emoji!</a>
+    <!-- Additional hidden content here -->
+
+    <!-- Hidden emoji images with alt text for screen readers -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Emoji_u1f44d.svg" alt="Thumbs up emoji" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Emoji_u2665.svg" alt="Red heart" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Emoji_u1f31f.svg" alt="Golden shooting star in space" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Emoji_Grinning_Face_Smiling_Eyes.svg" alt="Happy emoji, with a toothy grin" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Fluent_Emoji_flat_1f972.svg" alt="Smiling face with a single tear rolling down the cheek" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Noto_Emoji_Pie_1f92b.svg" alt="Secretive smiling face, holding a finger to its lips" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Fluent_Emoji_flat_1f972.svg" alt="This is the magic one! Embarrassed face with a single bead of sweat on forehead" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Noto_Emoji_Pie_1f92b.svg" alt="Cool cat wearing sunglasses" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Noto_Emoji_Pie_1f92b.svg" alt="Grinning emoji with tears of laughter on its cheeks" class="hidden-emoji" role="img" width="1" height="1">
+    <img src="https://img.freepik.com/free-psd/check-symbol-isolated_23-2150500363.jpg?t=st=1730890177~exp=1730893777~hmac=38dcc60afda10e5496d4b059551b26724004db527d8a939d9eefa783b44bd910&w=740" alt="Green tick mark" class="hidden-emoji" role="img" width="1" height="1">
+    <br>
+    <!-- Visible form with a select dropdown -->
+    <form id="emoji-form" onsubmit="validateEmojiSelection(); return false;">
+      <label for="emoji-select">What's the magic emoji?</label>
+      <select id="emoji-select" name="emoji-select" aria-describedby="error-message" required>
+        <option value="">Select an emoji...</option>
+        <option value="👍">👍 Thumbs Up</option>
+        <option value="😪">😪 Sleepy</option>
+        <option value="🍇">🍇 Grape</option>
+        <option value="😊">😊 Smile</option>
+        <option value="🍰">🍰 The Cake is a Lie</option>
+        <option value="😅">😅 Awkward</option>
+        <option value="✔️">✔️ Correct</option>
+        <option value="😂">😂 Laughing</option>
+        <option value="⭐">⭐ Star</option>
+        <option value="😭">😭 Crying</option>
+        <option value="❤️">❤️ Heart</option>
+        <option value="🥶">🥶 Cold</option>
+        <option value="😢">😢 Sad</option>
+      </select>
+      <button type="button" class="verify-button" onclick="validateEmojiSelection()">Verify</button>
+      <div id="error-message" class="error-message" role="alert">Please select the correct emoji to proceed.</div>
+    </form>
+  </main>
+
+  <script>
+    // Form validation for emoji selection
+    const emojiSelect = document.getElementById('emoji-select');
+    const errorMessage = document.getElementById('error-message');
+
+    function validateEmojiSelection() {
+      const selectedEmoji = emojiSelect.value;
+
+      // Check if the selected emoji is the correct one (😅)
+      if (selectedEmoji === '😅') {
+        window.location.href = 'level3.html'; // Redirect to level 3 if correct
+      } else {
+        // Show and announce error message if incorrect
+        errorMessage.textContent = selectedEmoji === '' ? 
+          "Please select an emoji." : 
+          "That's not the correct emoji. Please try again.";
+        errorMessage.style.visibility = 'visible';
+        emojiSelect.setAttribute('aria-invalid', 'true'); // Mark as invalid for screen readers
+        emojiSelect.focus(); // Focus on the select field for re-entry
+      }
+    }
+
+    // Clear error on new selection
+    emojiSelect.addEventListener('change', () => {
+      errorMessage.style.visibility = 'hidden'; // Hide error message when user changes selection
+      emojiSelect.removeAttribute('aria-invalid'); // Remove invalid attribute
+    });
+  </script>
+</body>
+</html>
