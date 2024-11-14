@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 4</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    text-align: center;
+    padding: 50px;
+  }
+
+  header {
+    background-color: #333333;
+    color: #f0f0f0;
+    padding: 20px;
+    border-bottom: 2px solid #444;
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  /* Invisible elements */
+  h2, h3, h4, h5, h6, p, a, table {
+    opacity: 0; /* Make headings, paragraphs, and links invisible */
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  /* Form styling */
+  form {
+    margin-top: 50px;
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 350px;
+    margin: auto;
+  }
+
+  label {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #e0e0e0;
+  }
+
+  input[type="text"] {
+    font-size: 1.2rem;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #444;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #00bcd4;
+  }
+
+  /* Verify button styling */
+  .verify-button {
+    background-color: #00bcd4;
+    color: #1e1e1e;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  .verify-button:hover {
+    background-color: #008ba2;
+  }
+
+  /* Error message styling */
+  .error-message {
+    color: #ff4f4f;
+    font-size: 1rem;
+    margin-top: 15px;
+    visibility: hidden; /* Hidden by default */
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NVDA Challenge: Level 4</h1>
+  </header>
+
+  <main>
+    <br role="presentation"/>
+    <a href="#">There's a table here</a>
+    <a href="#">You can navigate it using your arrow keys</a>
+    <a href="#">Play around a bit! The secret word is inside that table</a>
+
+
+    <!-- Hidden table for screen reader users only -->
+    <table class="hidden-table" aria-label="Find the magic word in this table">
+      <caption>Navigate to find the hidden word</caption>
+      <thead>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">Costa</th>
+          <th scope="col">Starbucks</th>
+          <th scope="col">Greggs</th>
+          <th scope="col">Tim Hortons</th>
+          <th scope="col">Pret</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Seasonal Drink</th>
+          <td>Gingerbread Latte</td>
+          <td>Pumpkin Spice Latte</td>
+          <td>Mint Hot Chocolate</td>
+          <td>Peppermint Mocha</td>
+          <td>Spiced Pumpkin Latte</td>
+        </tr>
+        <tr>
+          <th scope="row">Specialty Food</th>
+          <td>Cheese Toastie</td>
+          <td>Almost there! The secret word is the heading of the next column</td>
+          <td>Congratulations! The secret word is the heading of this column.</td>
+          <td>Timbits (Doughnuts)</td>
+          <td>Avocado Toast</td>
+        </tr>
+        <tr>
+          <th scope="row">Average Price</th>
+          <td>£3 - £5</td>
+          <td>£3.50 - £5.50</td>
+          <td>£2 - £4</td>
+          <td>£2.50 - £5</td>
+          <td>£3 - £6</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <!-- Visible form -->
+    <form id="magic-word-form" onsubmit="validateMagicWord(); return false;">
+      <label for="magic-word">What's the hidden word?</label>
+      <input type="text" id="magic-word" name="magic-word" aria-describedby="error-message" required autocomplete="off">
+      <button type="button" class="verify-button" onclick="validateMagicWord()">Verify</button>
+      <div id="error-message" class="error-message" role="alert">Please enter the correct word to proceed.</div>
+    </form>
+  </main>
+
+  <script>
+    // Form validation for magic word
+    const magicWordInput = document.getElementById('magic-word');
+    const errorMessage = document.getElementById('error-message');
+
+    function validateMagicWord() {
+      const userInput = magicWordInput.value.trim().toLowerCase(); // Get user input and ignore case
+
+      // Check if the input matches the magic word
+      if (userInput === 'greggs' || userInput === 'gregg') {
+        window.location.href = 'level5.html'; // Redirect to level 5 if correct
+      } else {
+        // Show and announce error message if incorrect
+        errorMessage.textContent = userInput === '' ? 
+          "You haven't entered the secret word yet." : 
+          "That's not the correct secret word. Please try again.";
+        errorMessage.style.visibility = 'visible';
+        magicWordInput.setAttribute('aria-invalid', 'true'); // Mark as invalid for screen readers
+        magicWordInput.focus(); // Focus on the input field for re-entry
+      }
+    }
+
+    // Clear error on new input
+    magicWordInput.addEventListener('input', () => {
+      errorMessage.style.visibility = 'hidden'; // Hide error message when user starts typing
+      magicWordInput.removeAttribute('aria-invalid'); // Remove invalid attribute
+    });
+  </script>
+</body>
+</html>

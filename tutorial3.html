@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial 3: Forms</title>
+  <link rel="icon" type="image/png" href="uv-lozenge.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1e1e1e; /* Dark grey background */
+      color: #e0e0e0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header {
+      background-color: #333333;
+      color: #f0f0f0;
+      padding: 20px;
+      border-bottom: 2px solid #444;
+    }
+
+    h1, h2 {
+      margin: 0;
+    }
+
+    main {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #tutorial-intro {
+      max-width: 600px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-container {
+      max-width: 500px;
+      background-color: #2c2c2c; /* Dark container */
+      padding: 35px;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: left;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], select {
+      font-size: 1rem;
+      padding: 10px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background-color: #444; /* Darker grey for input fields */
+      color: #e0e0e0;
+    }
+
+    /* Styling the fieldset and aligning radio options */
+    fieldset {
+      border: 1px solid #00bcd4; /* Blue border */
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 10px;
+      background-color: #333; /* Consistent fieldset background */
+    }
+
+    legend {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #00bcd4; /* Blue text */
+    }
+
+    kbd {
+      background-color: #444444;
+      border: 1px solid #555555;
+      border-radius: 5px;
+      padding: 4px 5px;
+      font-size: 1.0rem;
+    }
+
+    /* Flex styling for radio options */
+    .radio-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .radio-option label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Button styling for "Proceed to Tutorial 4" */
+    .proceed-button {
+      background-color: #00bcd4;
+      color: #1e1e1e;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+      text-align: center;
+      width: 80%;
+      transition: background-color 0.3s ease;
+    }
+
+    .proceed-button:hover {
+      background-color: #008ba2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NVDA Challenge - Tutorial 3: Forms</h1>
+  </header>
+
+  <main>
+    <!-- Introductory text outside the form container -->
+    <div id="tutorial-intro">
+      <h2 id="tutorial3-heading">Forms</h2>
+      <p>Use <kbd>Tab</kbd> to navigate between form elements. Use your directional arrow keys to move between different options and choices.</p>
+    </div>
+    
+    <!-- Form container with form elements -->
+    <div class="form-container">
+      <form>
+        <label for="name">Text input:</label>
+        <input type="text" id="name" name="name">
+        
+        <fieldset>
+          <legend>Choose an option:</legend>
+          <div class="radio-options">
+            <div class="radio-option">
+              <label><input type="radio" name="option" value="Option 1"> Option 1</label>
+            </div>
+            <div class="radio-option">
+              <label><input type="radio" name="option" value="Option 2"> Option 2</label>
+            </div>
+            <div class="radio-option">
+              <label><input type="radio" name="option" value="Option 3"> Option 3</label>
+            </div>
+          </div>
+        </fieldset>
+        
+        <label for="dropdown">Select a choice:</label>
+        <select id="dropdown" name="dropdown">
+          <option value="choice1">Choice 1</option>
+          <option value="choice2">Choice 2</option>
+          <option value="choice3">Choice 3</option>
+        </select>
+      </form>
+      
+      <!-- Styled button link to proceed -->
+      <a href="tutorial4.html" class="proceed-button">Proceed to Tutorial 4</a>
+    </div>
+  </main>
+</body>
+</html>

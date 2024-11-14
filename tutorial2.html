@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial 2: Interactive Components</title>
+  <link rel="icon" type="image/png" href="uv-lozenge.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Basic styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #121212; /* Darker background */
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      margin: 0;
+    }
+
+    
+p,a{
+  font-size: 1.2rem;
+}
+
+    main {
+      padding: 20px;
+    }
+
+    kbd {
+      background-color: #444444;
+      border: 1px solid #555555;
+      border-radius: 3px;
+      padding: 4px 8px;
+      font-size: 1.1rem;
+    }
+
+    /* Expandable menu toggle styling */
+    #toggle-menu {
+      background-color: #00bcd4;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+
+    #toggle-menu:hover {
+      background-color: #008ba2;
+    }
+
+    /* Flyout menu container styling */
+    #expandable-menu {
+      display: none;
+      background-color: #333333;
+      border-radius: 5px;
+      width: max-content;
+      margin: 10px auto 0 auto;
+      text-align: left;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slight shadow for depth */
+    }
+
+    /* Submenu item styling */
+    #expandable-menu ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #expandable-menu ul li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #444444; /* Horizontal line between items */
+    }
+
+    #expandable-menu ul li:last-child {
+      border-bottom: none; /* Remove border on the last item */
+    }
+
+    #expandable-menu ul li a {
+      display: block;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* Hover and focus states for accessibility */
+    #expandable-menu ul li a:hover,
+    #expandable-menu ul li a:focus {
+      background-color: #1150b5;
+      outline: dotted;
+    }
+
+    /* Show the menu when expanded */
+    [aria-expanded="true"] + #expandable-menu {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NVDA Challenge - Tutorial 2: Interactive Components</h1>
+  </header>
+
+  <main>
+    <section id="tutorial2" aria-labelledby="tutorial2-heading">
+      <br role="presentation"/>      <br role="presentation"/>
+      <h2 id="tutorial2-heading">Interactive Components</h2>
+      <br role="presentation"/>
+      <p>Tab to interactive elements like menus and use <kbd>Enter</kbd> to expand or collapse them.</p>
+      
+      <!-- Expandable menu toggle button -->
+      <button id="toggle-menu" aria-expanded="false" aria-controls="expandable-menu" aria-label="Expand menu">
+        Dropdown Menu
+      </button>
+      
+      <!-- Flyout menu section -->
+      <div id="expandable-menu">
+        <ul>
+          <li><a href="#">Menu Item 1</a></li>
+          <li><a href="#">Menu Item 2</a></li>
+          <li><a href="#">Menu Item 3</a></li>
+          <li><a href="tutorial3.html">Proceed to Tutorial 3</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // JavaScript to toggle menu visibility
+    const toggleButton = document.getElementById('toggle-menu');
+    const expandableMenu = document.getElementById('expandable-menu');
+
+    toggleButton.addEventListener('click', () => {
+      const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+      toggleButton.setAttribute('aria-expanded', !isExpanded);
+      expandableMenu.hidden = isExpanded; // Toggle hidden state
+
+      // Update button text
+      toggleButton.textContent = isExpanded ? 'Expand Menu' : 'Collapse Menu';
+    });
+  </script>
+</body>
+</html>

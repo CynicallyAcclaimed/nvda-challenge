@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 5</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Basic styling for visually hidden but screen reader-accessible content */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Page styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      text-align: center;
+      padding: 50px;
+    }
+
+    form {
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 8px;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      max-width: 350px;
+      margin: auto;
+      width: 100%;
+    }
+
+    /* Styling for the question text */
+    label[for="magic-word"] {
+      font-size: 1.5rem; /* Larger font size for the question */
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* Styling for the input field */
+    input[type="text"] {
+      width: 100%; /* Full width to match the question */
+      padding: 10px;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    /* Verify button styling */
+    .verify-button {
+      background-color: #00bcd4;
+      color: #1e1e1e;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .verify-button:hover {
+      background-color: #008ba2;
+    }
+
+    .error-message {
+      color: #ff4f4f;
+      font-size: 1rem;
+      margin-top: 15px;
+      visibility: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>NVDA Challenge: Level 5</h1>
+
+  <!-- Expandable Section -->
+  <div class="sr-only" id="expandable-section" aria-expanded="false">
+    <button id="expand-button" onclick="toggleSection()" aria-expanded="false" aria-controls="expanded-content">Expand to Continue</button>
+    <p id="expandable-heading" class="sr-only">Section is collapsed.</p>
+
+    <div id="expanded-content" class="sr-only" inert>
+      <fieldset>
+        <legend>Select Yes to proceed</legend>
+        <input type="radio" id="maybe" name="proceed" value="maybe" onclick="hideProceedSteps()"> 
+        <label for="maybe">Maybe</label>
+        <input type="radio" id="yes" name="proceed" value="yes" onclick="showDropdown()"> 
+        <label for="yes">Yes</label>
+        <input type="radio" id="no" name="proceed" value="no" onclick="hideProceedSteps()"> 
+        <label for="no">No</label>
+      </fieldset>
+
+      <div id="dropdown-group" class="sr-only" aria-expanded="false" inert>
+        <label for="secret-menu">Choose the right option to proceed:</label>
+        <select id="secret-menu" onchange="checkForSecretWord()" >
+          <option value="" >Select...</option>
+          <option value="option1">Breakfast</option>
+          <option value="option2">Snack, look out for the next one!</option>
+          <option value="secret">Second breakfast! Select this to proceed.</option>
+          <option value="option3">Lunch</option>
+          <option value="option4">Dinner</option>
+        </select>
+      </div>
+
+      <div id="number-field-group" class="sr-only" inert>
+        <label for="number-field">Enter any number:</label>
+        <input type="number" id="number-field" oninput="validateNumberInput()">
+      </div>
+      <div id="number-proceed-button" class="sr-only" inert>
+        <button class="button" onclick="announceSecretWord()">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert region for announcing the secret word -->
+  <div role="alert" id="alert-region" class="sr-only" aria-live="polite"></div>
+
+  <!-- Visible form -->
+  <form id="magic-word-form" onsubmit="validateMagicWord(); return false;">
+    <label for="magic-word">What's the final word?</label>
+    <input type="text" id="magic-word" name="magic-word" aria-describedby="error-message" required autocomplete="off">
+    <button type="button" class="verify-button" onclick="validateMagicWord()">Verify</button>
+    <div id="error-message" class="error-message" role="alert">Please enter the correct word to proceed.</div>
+  </form>
+
+  <script>
+    // Expandable section toggle
+    function toggleSection() {
+      const section = document.getElementById('expanded-content');
+      const expandButton = document.getElementById('expand-button');
+      const isExpanded = expandButton.getAttribute('aria-expanded') === 'true';
+
+      section.classList.toggle('sr-only', isExpanded);
+      section.toggleAttribute('inert', isExpanded);
+      expandButton.setAttribute('aria-expanded', !isExpanded);
+      updateDropdownState(!isExpanded);
+    }
+
+    // Update aria-expanded for dropdown group
+    function updateDropdownState(isExpanded) {
+      const dropdownGroup = document.getElementById('dropdown-group');
+      dropdownGroup.setAttribute('aria-expanded', isExpanded);
+    }
+
+    // Show dropdown after "Yes" is selected
+    function showDropdown() {
+      const dropdownGroup = document.getElementById('dropdown-group');
+      dropdownGroup.classList.remove('sr-only');
+      dropdownGroup.removeAttribute('inert');
+    }
+
+    // Hide further steps if "Maybe" or "No" is selected
+    function hideProceedSteps() {
+      const dropdownGroup = document.getElementById('dropdown-group');
+      const numberFieldGroup = document.getElementById('number-field-group');
+      const numberProceedButton = document.getElementById('number-proceed-button');
+      const alertRegion = document.getElementById('alert-region');
+
+      dropdownGroup.classList.add('sr-only');
+      dropdownGroup.setAttribute('inert', '');
+      numberFieldGroup.classList.add('sr-only');
+      numberFieldGroup.setAttribute('inert', '');
+      numberProceedButton.classList.add('sr-only');
+      numberProceedButton.setAttribute('inert', '');
+      alertRegion.classList.add('sr-only');
+    }
+
+    // Show number field if the "Secret" dropdown option is selected
+    function checkForSecretWord() {
+      const secretWordOption = document.getElementById('secret-menu').value;
+      const numberFieldGroup = document.getElementById('number-field-group');
+      if (secretWordOption === 'secret') {
+        numberFieldGroup.classList.remove('sr-only');
+        numberFieldGroup.removeAttribute('inert');
+      } else {
+        numberFieldGroup.classList.add('sr-only');
+        numberFieldGroup.setAttribute('inert', '');
+      }
+    }
+
+    // Validate number input to reveal proceed button
+    function validateNumberInput() {
+      const numberField = document.getElementById('number-field');
+      const proceedButton = document.getElementById('number-proceed-button');
+      if (!isNaN(numberField.value) && numberField.value !== "") {
+        proceedButton.classList.remove('sr-only');
+        proceedButton.removeAttribute('inert');
+      } else {
+        proceedButton.classList.add('sr-only');
+        proceedButton.setAttribute('inert', '');
+      }
+    }
+
+    // Announce the secret word when the final proceed button is clicked
+    function announceSecretWord() {
+      const alertRegion = document.getElementById('alert-region');
+      alertRegion.textContent = 'Congratulations! The final word is Bingo! B I N G O.';
+    }
+
+    // Validate the final magic word
+    function validateMagicWord() {
+      const magicWordInput = document.getElementById('magic-word').value.trim().toLowerCase();
+      const errorMessage = document.getElementById('error-message');
+
+      if (magicWordInput === 'bingo') {
+        window.location.href = 'congratulations.html';
+      } else {
+        errorMessage.textContent = magicWordInput === '' ?
+          "You haven't entered the magic word yet." :
+          "That's not the correct magic word. Please try again.";
+        errorMessage.style.visibility = 'visible';
+      }
+    }
+
+    document.getElementById('magic-word').addEventListener('input', () => {
+      document.getElementById('error-message').style.visibility = 'hidden';
+    });
+  </script>
+
+</body>
+</html>

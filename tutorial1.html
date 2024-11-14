@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial 1: Tabbing</title>
+  <link rel="icon" type="image/png" href="uv-lozenge.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Basic styling */
+    body {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.8;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+p{
+  font-size: 1.2rem;
+}
+header {
+  background-color: #282828;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #444;
+}
+
+main {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+/* Interactive elements */
+button, a, input, select {
+  background-color: #333333;
+  color: #ffffff;
+  border: 2px solid #00bcd4;
+  padding: 10px 15px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover, button:focus, a:hover, a:focus {
+  background-color: #00bcd4;
+  color: #000000;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Focus state for accessibility */
+button:focus, a:focus, input:focus {
+  outline: 3px solid #00bcd4;
+}
+
+/* Forms */
+form {
+  max-width: 400px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+fieldset {
+  border: 2px solid #00bcd4;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+legend {
+  font-weight: bold;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #444;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Lists */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li {
+  background-color: #333333;
+  padding: 10px;
+  border: 2px solid #00bcd4;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+kbd {
+  background-color: #444444;
+  border: 1px solid #555555;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 1.2rem;
+}
+
+/* Hidden sections */
+[hidden] {
+  display: none !important;
+}
+    </style>
+</head>
+<body>
+  <header>
+    <h1>NVDA Challenge - Tutorial 1: Tabbing</h1>
+  </header>
+
+  <main>
+    <section id="tutorial1" aria-labelledby="tutorial1-heading">
+      <h2 id="tutorial1-heading">Tabbing Through Focusable Elements</h2>
+      <p> Use the <kbd>Tab</kbd> key to move focus through interactive elements. Use <kbd>Shift + Tab</kbd> to move backwards.</p>
+      <button>Button 1</button>
+      <button>Button 2</button>
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <br role="presentation"/>
+
+      <p> Use your arrow keys to move line by line. This won't be part of the tab order.</p>
+      <p> More text that's not a part of the tab order.</p>
+
+      <button>Another button that does nothing</button>
+      <p> This also won't be part of the tab order, but it will be announced if you're using your keyboard's arrow keys!</p>
+    </section>
+    <a href="tutorial2.html">Proceed to Tutorial 2</a>
+  </main>
+</body>
+</html>

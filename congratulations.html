@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NVDA Challenge Introduction</title>
+  <link rel="icon" type="image/png" href="uv-lozenge.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1e1e1e; /* Dark grey background */
+      color: #e0e0e0; /* Light text for contrast */
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #333333;
+      padding: 20px;
+      border-bottom: 2px solid #444;
+    }
+
+    header h1 {
+      color: #f0f0f0;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .character-animation {
+      margin-right: 30px;
+      width: 200px; /* Larger character image */
+    }
+
+    .character-animation img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Speech bubble styles */
+    .speech-bubble {
+      display: none;
+      background-color: #00bcd4; /* Accessible blue for speech bubble */
+      color: #1e1e1e;
+      border-radius: 15px;
+      padding: 20px;
+      font-size: 1.2rem; /* Larger font size for readability */
+      position: relative;
+      max-width: 400px; /* Increased width for better text spacing */
+      text-align: left;
+      margin: 10px 0;
+    }
+
+    /* Triangle pointer on bottom left of speech bubble (diagonal) */
+    .speech-bubble:before {
+      content: '';
+      position: absolute;
+      bottom: 4px; /* Position it at the bottom of the bubble */
+      left: -25px; /* Position it at the left edge of the bubble */
+      width: 0;
+      height: 0;
+      border-left: 22px solid transparent; /* Create left side of the triangle */
+      border-right: 28px solid transparent; /* Create right side of the triangle */
+      border-top: 28px solid #00bcd4; /* Create the top side of the triangle, matching the bubble color */
+      transform: rotate(65deg); /* Rotate the triangle to point diagonally */
+    }
+
+    /* Style for speech bubble numbering */
+    .speech-bubble strong {
+      font-size: 0.8rem; /* Smaller text for the numbering */
+      display: block;
+      margin-top: 10px;
+    }
+
+    /* Navigation button styling */
+    .nav-button {
+      background-color: #ff5722;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif; /* Updated font */
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 5px; /* Space between buttons */
+    }
+
+    .nav-button:hover {
+      background-color: #e64a19;
+    }
+
+    .nav-button:disabled {
+      background-color: #d3d3d3;
+      color: #a0a0a0;
+      cursor: not-allowed;
+    }
+
+    /* Proceed button styling */
+    .proceed-button {
+      background-color: #00bcd4;
+      color: #1e1e1e;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      font-family: 'Inter', sans-serif; /* Updated font */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 30px;
+      display: inline-block;
+    }
+
+    .proceed-button:hover {
+      background-color: #008ba2;
+    }
+
+    /* Center the Proceed button */
+    .proceed-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎉 Congratulations! 🎉 </h1>
+  </header>
+
+  <main>
+    <section id="intro-section" aria-labelledby="intro-heading">
+      <div class="container">
+        <div class="character-animation">
+          <img src="NVDA_Character.png" alt="NVDA Character congratulating you" aria-hidden="true">
+        </div>
+        <div id="speech-container">
+          <div class="speech-bubble" role="alert">That was a tricky challenge, but you solved it! <br role="presentation"> <strong>1/5</strong></div>
+          <div class="speech-bubble" role="alert">Accessible digital design is all about inclusivity. And when coded correctly, screen readers ensure a good experience for users who need them.<br role="presentation"> <strong>2/5</strong></div>
+          <div class="speech-bubble" role="alert">Even though some of those announcements might not have sounded straightforward to you... <br role="presentation"> <strong>3/5</strong></div>
+          <div class="speech-bubble" role="alert">But here’s a question to ponder: How accessible do you think most websites truly are? How can we be better? <br role="presentation"> <strong>4/5</strong></div>
+            <div class="speech-bubble" role="alert"> Check out our other stations to learn more! And thank you for caring about accessibility! <br role="presentation"> <strong>4/5</strong></div>
+        </div>
+      </div>
+      <div>
+        <button id="prev-btn" class="nav-button" onclick="showPrevious()" disabled>Previous</button>
+        <button id="next-btn" class="nav-button" onclick="showNext()">Next</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Manage speech bubble visibility and navigation
+    const speechBubbles = document.querySelectorAll('.speech-bubble');
+    let currentBubbleIndex = 0;
+
+    function showBubble(index) {
+      speechBubbles.forEach((bubble, i) => {
+        bubble.style.display = (i === index) ? 'block' : 'none';
+      });
+      document.getElementById('prev-btn').disabled = (index === 0);
+      document.getElementById('next-btn').disabled = (index === speechBubbles.length - 1);
+    }
+
+    function showNext() {
+      if (currentBubbleIndex < speechBubbles.length - 1) {
+        currentBubbleIndex++;
+        showBubble(currentBubbleIndex);
+      }
+    }
+
+    function showPrevious() {
+      if (currentBubbleIndex > 0) {
+        currentBubbleIndex--;
+        showBubble(currentBubbleIndex);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      showBubble(currentBubbleIndex); 
+      const introHeading = document.getElementById('intro-heading');
+      introHeading.focus();
+    });
+  </script>
+</body>
+</html>
